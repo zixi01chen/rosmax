@@ -1,0 +1,26 @@
+# rosmax 板卡注册表——panel.py / 部署脚本按名字连接对应板子
+# 新增板卡：加一个条目即可（host/user/password/overlay），无需改代码
+default: s600-23
+
+boards:
+  s600-23:
+    host: 10.112.133.23
+    user: root
+    password: root
+    overlay: /root/rosmax_overlay
+    desc: "RDK S600 验证板（18核/24G，共享负载）"
+
+  s600-20:
+    host: 10.112.133.20
+    user: root
+    password: root
+    overlay: /root/rosmax_overlay
+    desc: "RDK S600 正式基线板（RT 内核，独占窗口用）"
+
+  # 新板子示例（取消注释并填入实际信息）：
+  # s600-30:
+  #   host: 10.112.133.30
+  #   user: root
+  #   password: root
+  #   overlay: /root/rosmax_overlay
+  #   desc: "备注"

@@ -1,0 +1,47 @@
+{
+  "_comment": "板画像 W1.4（2026-10-27 采集；.20 为正式基线板，.23 为当前验证板）",
+  "s600-board-20": {
+    "host": "10.112.133.20",
+    "status_20261027": "sshd 曾挂死→用户重启恢复；随后被租户任务重载（load 13），基线跑测暂移 .23",
+    "arch": "aarch64",
+    "cpu": "Cortex-A78AE x18",
+    "mem_mb": 14915,
+    "kernel": "6.1.158-rt58-DR-5.0.0 (PREEMPT_RT)",
+    "governor": "performance",
+    "ros": "/opt/ros/jazzy（fastrtps only，无 cyclonedds）",
+    "rclpy": true,
+    "apt": "可用，ros-jazzy-performance-test 2.3.0 有候选包",
+    "nfs_tros_ws": "不可用（board /mnt/zixi01.chen 空挂载点，host 无导出）——部署走 scp overlay",
+    "domain_conflict": "默认域仅 /parameter_events /rosout；压测用 domain 77 隔离",
+    "board_code_path": "未定（NFS 不可用），overlay 于 /root/rosmax_overlay"
+  },
+  "s600-board-23": {
+    "host": "10.112.133.23",
+    "desc": "V5.1.0, 18核/23G, fast_gicp 部署机（用户指定验证板）",
+    "arch": "aarch64",
+    "cpu_count": 18,
+    "load_typical": "5-8（共享）",
+    "governor": "performance",
+    "ros": "无原生 ROS——验证通道：容器 czx_jazzy_container 内 /opt/ros/jazzy（aarch64, 266MB）tar 直传 /opt/ros + /root/rosmax_overlay",
+    "rclpy": false,
+    "os_libs_added": "已 apt 正装：liblttng-ust1t64/libspdlog1.12/libtinyxml2-10/libfmt9/liburcu8t64 + python3-argcomplete（2026-10-27 修复 ros2 CLI ImportError）",
+    "rmw_available": "fastrtps only",
+    "locale": "损坏（en_US.UTF-8 缺失）——运行 perf_test 须 LC_ALL=C",
+    "known_issue": "FastDDS 默认 transport（UDP+SHM 协商）：apt 装齐 OS 库后不再崩溃（2026-10-27 复验），但同机默认优先 SHM 路径——实测 p99 飙至 70ms、rate 108.6Hz>100Hz（疑似 SHM+UDP 双路径重复投递）。压测一律强制单 transport（UDP profile 或 SHM profile），禁止默认协商",
+    "ros2_cli": "可用：source /opt/ros/jazzy/setup.bash + ROS_DOMAIN_ID=77 + FASTRTPS_DEFAULT_PROFILES_FILE=/root/rosmax_overlay/fastdds_udp_only.xml；ros2 topic list/echo/info 全通（String 可直接 echo）"
+  },
+  "cross_check_reference": {
+    "apex_same_process_mean_us": "21-28（进程内直通路径，不可作跨进程参照）",
+    "apex_split_process": {
+      "min_us": "36-44",
+      "mean_us": "44-58",
+      "max_us": "105-353"
+    },
+    "ours": {
+      "min_us": "43-60",
+      "mean_us": "62-84",
+      "p50_us": "49-73",
+      "p99_us": "88-213"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rosmax_orchestrator</name>
+  <version>0.1.0</version>
+  <description>rosmax 编排器（Python）：MVP 为 sweep 驱动，W3 升级状态机编排</description>
+  <maintainer email="zixi01.chen@horizonrobotics.com">zixi01.chen</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>rosmax_common</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

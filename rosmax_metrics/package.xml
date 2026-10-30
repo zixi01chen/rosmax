@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rosmax_metrics</name>
+  <version>0.1.0</version>
+  <description>rosmax 系统指标采集：/proc CPU(单核归一)/内存/网络，100ms 采样</description>
+  <maintainer email="zixi01.chen@horizonrobotics.com">zixi01.chen</maintainer>
+  <license>Proprietary</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
